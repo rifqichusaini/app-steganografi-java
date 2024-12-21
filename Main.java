@@ -103,12 +103,13 @@ public class Main {
 
         btnBacaGambar.addActionListener(e -> {
             String decryptedMessage = DecryptLSB.Decrypt();
-            if (!decryptedMessage.equals("null")) {
+            if (!decryptedMessage.isEmpty() && !decryptedMessage.equals("null")) {
                 decryptTextField.setText(decryptedMessage);
                 frame.setSize(400, 170); // Mengubah ukuran frame
                 frame.setLocationRelativeTo(null); // Tetap di tengah setelah resize
                 cardLayout.show(mainPanel, "BacaGambar");
-            } else {
+            }
+            if (decryptedMessage.equals("null")){
                 JOptionPane.showMessageDialog(null,
                 "Gambar tidak memiliki pesan tersembunyi.",
                 "Error!",
