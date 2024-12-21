@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.io.File;
 
 public class FileSaver {
+    private static String filePath;
 
     public static String getSaveFilePath() {
         // Membuat JFileChooser untuk memilih lokasi dan nama file
@@ -15,26 +16,26 @@ public class FileSaver {
 
         if (userSelection == JFileChooser.APPROVE_OPTION) {
             File fileToSave = fileChooser.getSelectedFile();
-
             // Pastikan file memiliki ekstensi ".png"
-            String filePath = fileToSave.getAbsolutePath();
+            filePath = fileToSave.getAbsolutePath();
             if (!filePath.toLowerCase().endsWith(".png")) {
                 filePath += ".png";
             }
-
-            // Tampilkan konfirmasi path yang dipilih
-            JOptionPane.showMessageDialog(null,
-                    "File berhasil disimpan di: " + filePath,
-                    "Konfirmasi Lokasi",
-                    JOptionPane.INFORMATION_MESSAGE);
 
             return filePath;
         } else {
             JOptionPane.showMessageDialog(null,
                     "Proses penyimpanan dibatalkan.",
-                    "Batal",
+                    "Gagal disimpan!",
                     JOptionPane.WARNING_MESSAGE);
-            return null;
+            return "";
         }
+    }
+    public static void saveSukses(){
+        // Tampilkan konfirmasi path yang dipilih
+        JOptionPane.showMessageDialog(null,
+                "File berhasil disimpan di: " + filePath,
+                "Berhasil disimpan!",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 }
