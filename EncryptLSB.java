@@ -7,25 +7,32 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class EncryptLSB {
+	private static final String START_FLAG = "<<START>>";
+	private static final String END_FLAG = "<<END>>";
+
 	public static void Encrypt(File imageFile, String message) {
+		// Menambahkan flag ke pesan
+		String messageWithFlags = START_FLAG + message + END_FLAG;
+
 		FileSaver saveFile = new FileSaver();
 		String newImageFileString = saveFile.getSaveFilePath();
-		File newImageFile = new File(newImageFileString);
+		if(!newImageFileString.isEmpty()){
+			File newImageFile = new File(newImageFileString);
 
-		BufferedImage image;
-		try {
-			image = ImageIO.read(imageFile);
-			BufferedImage imageToEncrypt = GetImageToEncrypt(image);
-			Pixel[] pixels = GetPixelArray(imageToEncrypt);
-			String[] messageInBinary = ConvertMessageToBinary(message);
-			EncodeMessageBinaryInPixels(pixels, messageInBinary);
-			ReplacePixelsInNewBufferedImage(pixels, image);
-			SaveNewFile(image, newImageFile);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			BufferedImage image;
+			try {
+				image = ImageIO.read(imageFile);
+				BufferedImage imageToEncrypt = GetImageToEncrypt(image);
+				Pixel[] pixels = GetPixelArray(imageToEncrypt);
+				String[] messageInBinary = ConvertMessageToBinary(messageWithFlags); // Sekarang menggunakan pesan dengan flag
+				EncodeMessageBinaryInPixels(pixels, messageInBinary);
+				ReplacePixelsInNewBufferedImage(pixels, image);
+				SaveNewFile(image, newImageFile);
+				saveFile.saveSukses();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-
 	}
 
 	/*
