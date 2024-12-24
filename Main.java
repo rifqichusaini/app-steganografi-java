@@ -3,13 +3,13 @@ import java.awt.*;
 import java.io.File;
 
 public class Main {
-
     private File selectedFile; // Variabel global untuk menyimpan file gambar yang dipilih
     private JTextField decryptTextField;
     private JTextField encryptTextField;
     private JFrame frame; // Deklarasi frame
     private JPanel mainPanel; // Deklarasi mainPanel
     private CardLayout cardLayout; // Deklarasi cardLayout
+    FileHandler chooseFile = new FileChooser();
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new Main().App());
@@ -93,7 +93,7 @@ public class Main {
         btnKembali2.addActionListener(e -> kembaliMenu());
 
         btnInputGambar.addActionListener(e -> {
-            selectedFile = FileChooser.MakeFileChooser();
+            selectedFile = chooseFile.handleFile();
             if (selectedFile != null) {
                 frame.setSize(400, 170); // Mengubah ukuran frame
                 frame.setLocationRelativeTo(null); // Tetap di tengah setelah resize
