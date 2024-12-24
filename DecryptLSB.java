@@ -10,8 +10,10 @@ public class DecryptLSB {
     private static final String END_FLAG = "<<END>>";
 
     public static String Decrypt() {
-        File newImageFile = FileChooser.MakeFileChooser();
+        FileHandler chooseFile = new FileChooser();
+        File newImageFile = chooseFile.handleFile();
         BufferedImage image;
+
         if (newImageFile != null) {
             try {
                 image = ImageIO.read(newImageFile);
