@@ -14,11 +14,11 @@ public class EncryptLSB {
 		// Menambahkan flag ke pesan
 		String messageWithFlags = START_FLAG + message + END_FLAG;
 
-		FileSaver saveFile = new FileSaver();
-		String newImageFileString = saveFile.getSaveFilePath();
-		if(!newImageFileString.isEmpty()){
-			File newImageFile = new File(newImageFileString);
+		FileHandler saveFile = new FileSaver();
+		
+		File newImageFile = saveFile.handleFile();
 
+		if(newImageFile != null){
 			BufferedImage image;
 			try {
 				image = ImageIO.read(imageFile);
